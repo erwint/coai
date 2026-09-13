@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "coai": {
-      "command": "${CLAUDE_PLUGIN_ROOT}/bin/coai"
+      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/run.sh"
     }
   }
 }
