@@ -23,7 +23,24 @@ The release workflow uses the repository's `GITHUB_TOKEN`; no personal token is 
 
 ## Install as a plugin
 
-Clone or install this repository as a plugin in Claude Code or Codex. Build the bundled MCP binary first:
+Claude Code can install the plugin directly from its marketplace:
+
+```text
+/plugin marketplace add erwint/coai
+/plugin install coai@erwint-tools
+```
+
+The plugin downloads the matching release binary on first launch. No repository clone or local Go toolchain is required.
+
+For Codex CLI, install the release binary and register it as an MCP server:
+
+Download the archive for your operating system and architecture from the [v0.2.3 release](https://github.com/erwint/coai/releases/tag/v0.2.3), place the `coai` binary on your `PATH`, then register it:
+
+```bash
+codex mcp add coai -- coai
+```
+
+If you are developing locally, build the bundled MCP binary instead:
 
 ```bash
 git clone git@github.com:erwint/coai.git
@@ -31,14 +48,7 @@ cd coai
 ./scripts/build-plugin.sh
 ```
 
-Claude Code loads the included `.mcp.json` when the plugin is installed. For Codex, install the released `coai` binary on `PATH`, then add the plugin's MCP server with `codex mcp add coai -- coai`; the same plugin manifest and coordination database are shared.
-
-Claude Code can install it directly from the repository marketplace:
-
-```text
-/plugin marketplace add erwint/coai
-/plugin install coai@erwint-tools
-```
+Claude Code loads the included `.mcp.json` when the plugin is installed. Both clients share the same coordination database; set `COAI_STATE` explicitly when sessions need a non-default location.
 
 ## Build and configure
 
