@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "coai": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/bin/coai"
+    }
+  }
+}

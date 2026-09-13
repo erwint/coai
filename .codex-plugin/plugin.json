@@ -1,0 +1,14 @@
+{
+  "name": "coai",
+  "description": "Coordinate Claude Code and Codex sessions with durable tasks, messages, leases, and notifications.",
+  "version": "0.1.0",
+  "author": { "name": "erwint", "url": "https://github.com/erwint" },
+  "license": "MIT",
+  "repository": "https://github.com/erwint/coai",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "CoAI Agent Coordination",
+    "shortDescription": "Coordinate Claude and Codex sessions",
+    "category": "Productivity"
+  }
+}

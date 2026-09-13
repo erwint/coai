@@ -21,6 +21,18 @@ git push origin v0.1.0
 
 The release workflow uses the repository's `GITHUB_TOKEN`; no personal token is required.
 
+## Install as a plugin
+
+Clone or install this repository as a plugin in Claude Code or Codex. Build the bundled MCP binary first:
+
+```bash
+git clone git@github.com:erwint/coai.git
+cd coai
+./scripts/build-plugin.sh
+```
+
+Claude Code loads the included `.mcp.json` when the plugin is installed. For Codex, install the released `coai` binary on `PATH`, then add the plugin's MCP server with `codex mcp add coai -- coai`; the same plugin manifest and coordination database are shared.
+
 ## Build and configure
 
 ```bash
