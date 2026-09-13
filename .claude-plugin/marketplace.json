@@ -1,0 +1,13 @@
+{
+  "name": "erwint-tools",
+  "owner": { "name": "erwint", "url": "https://github.com/erwint" },
+  "plugins": [
+    {
+      "name": "coai",
+      "source": { "source": "github", "repo": "erwint/coai" },
+      "description": "Coordinate Claude Code and Codex sessions with durable tasks, messages, leases, and notifications.",
+      "version": "0.2.0",
+      "category": "Productivity"
+    }
+  ]
+}

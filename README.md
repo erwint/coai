@@ -33,6 +33,13 @@ cd coai
 
 Claude Code loads the included `.mcp.json` when the plugin is installed. For Codex, install the released `coai` binary on `PATH`, then add the plugin's MCP server with `codex mcp add coai -- coai`; the same plugin manifest and coordination database are shared.
 
+Claude Code can install it directly from the repository marketplace:
+
+```text
+/plugin marketplace add erwint/coai
+/plugin install coai@erwint-tools
+```
+
 ## Build and configure
 
 ```bash
