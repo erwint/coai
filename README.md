@@ -1,5 +1,13 @@
 # coai coordinator
 
+> **coai is now [agenteur](https://github.com/erwint/agenteur).** This repository is retired. Installed copies have already moved: coai's last release (v0.5.0) installs agenteur in place of `~/.local/bin/coai`, so the coai plugins keep working and tell you when to switch. To switch:
+>
+> Claude Code: `/plugin uninstall coai@coai`, `/plugin marketplace remove coai`, `/plugin marketplace add erwint/agenteur`, `/plugin install agenteur@agenteur`
+>
+> Codex: `codex plugin remove coai@coai`, `codex plugin marketplace remove coai`, `codex plugin marketplace add erwint/agenteur`, `codex plugin add agenteur@agenteur`
+>
+> Sessions and history carry over. New installs should follow [agenteur's README](https://github.com/erwint/agenteur#install); the instructions below are kept for reference.
+
 `coai` is a local, shared MCP coordination server for Claude Code, Codex CLI, and other MCP clients. Each client gets its own MCP process, while all processes share one SQLite database (WAL mode). Tasks and messages are durable; `await_task` blocks until another agent publishes a result.
 
 ## Build and release
@@ -99,12 +107,6 @@ cd coai
 ./scripts/build-plugin.sh
 codex plugin marketplace add "$PWD"      # or, in Claude Code: /plugin marketplace add ./
 ```
-
-### Upcoming rename to agenteur
-
-coai will be renamed **agenteur**. Installed copies move by themselves: once the repository is renamed, coai's daily self-update installs the agenteur binary in place of `~/.local/bin/coai` and adds an `agenteur` link beside it, so running sessions and both plugins keep working. The coordination database stays where it is.
-
-Every setting already has its new name: `AGENTEUR_STATE`, `AGENTEUR_CODEX_SOCKET` and `AGENTEUR_NO_UPDATE` work today and take precedence over the `COAI_*` names, which keep working. Switching the plugins to the agenteur marketplace comes with the rename; the plugins will say so when it is time.
 
 ## Build and configure
 

@@ -2,6 +2,8 @@
 
 Guidance for coding agents (Claude Code, Codex, and others) working in this repository.
 
+**This repository is retired: coai is now agenteur, developed at `erwint/agenteur`.** Make changes there. The latest release here, v0.5.0, is the bridge: it packages agenteur as `coai_<os>_<arch>` archives, and every installed coai updates itself into it. Never publish another release here (the release workflow is removed for that reason); old updaters install whatever is latest.
+
 ## What this is
 
 `coai` is a single-binary Go MCP server (stdio transport) that lets Claude Code, Codex CLI, and other MCP clients coordinate through durable tasks, messages, and advisory file leases. Every client spawns its **own** `coai` process; the processes share state only through one SQLite database (WAL mode, `modernc.org/sqlite`, pure Go, no cgo).
@@ -35,14 +37,6 @@ CI (`.github/workflows/ci.yml`) runs test, vet, and build. Releases are made by 
 - Marketplaces: the repository root is the plugin for both clients. `.claude-plugin/marketplace.json` (Claude) and `.agents/plugins/marketplace.json` (Codex, `"path": "./"`) both name the marketplace `coai`, so users install `coai@coai` from `erwint/coai` in either client. Keep the names in step.
 - Codex: `.codex-plugin/plugin.json` runs `scripts/run-codex.sh` through `sh -c` with `"cwd": "."`. Codex 0.162 neither expands `${CLAUDE_PLUGIN_ROOT}` nor sets a plugin-root variable for MCP servers, and resolves only `cwd` (not `command`) against the plugin directory, so the MCP process runs in the plugin cache and agents must pass their own `cwd` to `join_session`. Codex also passes MCP servers only a minimal environment plus the variables named in `env_vars`, so any variable coai or its launchers read must be listed there. The calling thread arrives in each tool call's `_meta.threadId` (`callerThread`), not in `CODEX_THREAD_ID`. That script starts `codex app-server daemon start` (unless `COAI_CODEX_SOCKET` is set), runs `--check-codex`, then execs `run.sh`. It must never install or replace the Codex binary. Diagnostics must go to stderr, because stdout is the MCP stream.
 - **Versions:** the binary's version comes from the git tag (`-X main.version`, set by GoReleaser and by `git describe` in `make build` / `build-plugin.sh`). Archives have no version in their names, so `run.sh` installs from `releases/latest/download/`, and `update.go` checks `releases/latest` once a day and replaces the binary. Builds whose version is `dev` or a `git describe` string are never replaced. The plugin version is separate: see [Versions](#versions) below.
-
-## Rename to agenteur
-
-coai is being renamed agenteur. The last coai releases prepare installed copies to move in place; the agenteur side must keep these promises:
-
-- **Releases:** after `erwint/coai` is renamed, GitHub redirects its `releases/latest` to `erwint/agenteur`. `latestRelease` follows that hop and downloads from the new repository. A release without `coai_<os>_<arch>` archives is installed from `agenteur_<os>_<arch>` (binary `agenteur`) over the running coai, with an `agenteur` symlink beside it (`applyRelease`, `successor`). `run.sh` does the same on first install. So agenteur must publish `agenteur_<os>_<arch>.tar.gz` holding a binary named `agenteur`, and must keep working when started as `coai` by an old plugin.
-- **Database:** coai and agenteur processes share one database while users switch, so agenteur must keep using `<UserConfigDir>/coai/state.json` when it exists, never move it, and only add schema through `migrate()`.
-- **Settings:** `setting()` reads `AGENTEUR_<NAME>` before `COAI_<NAME>`; agenteur must keep accepting the `COAI_*` names. Any new name the Codex launcher needs goes into `env_vars`.
 
 ## Versions
 
