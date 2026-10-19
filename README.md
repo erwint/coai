@@ -1,10 +1,22 @@
 # coai coordinator
 
-> **coai is now [agenteur](https://github.com/erwint/agenteur).** This repository is retired. Installed copies have already moved: coai's last release (v0.5.0) installs agenteur in place of `~/.local/bin/coai`, so the coai plugins keep working and tell you when to switch. To switch:
+> **coai is now [agenteur](https://github.com/erwint/agenteur).** This repository is retired, and the coai plugin gets no further updates. Installed binaries have already moved: coai's last release (v0.5.0) installs agenteur in place of `~/.local/bin/coai`, so the coai plugins keep working, and when you join a session the agent offers to switch the plugins for you. To switch by hand, in a shell (agenteur is installed first, so a failed step leaves a working plugin):
 >
-> Claude Code: `/plugin uninstall coai@coai`, `/plugin marketplace remove coai`, `/plugin marketplace add erwint/agenteur`, `/plugin install agenteur@agenteur`
+> ```bash
+> # Claude Code
+> claude plugin marketplace add erwint/agenteur
+> claude plugin install agenteur@agenteur
+> claude plugin uninstall coai@coai
+> claude plugin marketplace remove coai
 >
-> Codex: `codex plugin remove coai@coai`, `codex plugin marketplace remove coai`, `codex plugin marketplace add erwint/agenteur`, `codex plugin add agenteur@agenteur`
+> # Codex
+> codex plugin marketplace add erwint/agenteur
+> codex plugin add agenteur@agenteur
+> codex plugin remove coai@coai
+> codex plugin marketplace remove coai
+> ```
+>
+> Then restart open sessions and join with `/agenteur:join` (Claude Code) or `$agenteur:join` (Codex). See [Moving from coai](https://github.com/erwint/agenteur#moving-from-coai) for details.
 >
 > Sessions and history carry over. New installs should follow [agenteur's README](https://github.com/erwint/agenteur#install); the instructions below are kept for reference.
 
